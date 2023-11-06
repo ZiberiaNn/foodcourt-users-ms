@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -29,7 +30,8 @@ public class UserEntity {
     private Date birthDate;
     @Column(length = 50)
     private String email;
-    private Integer roleId;
     @Column(length = 50)
     private String password;
+    @ManyToMany
+    private Collection<RoleEntity> roles;
 }
