@@ -1,5 +1,6 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.pragma.powerup.domain.exception.InvalidEmailException;
 import com.pragma.powerup.domain.exception.InvalidIdentityDocumentException;
 import com.pragma.powerup.domain.exception.InvalidPhoneException;
@@ -40,5 +41,12 @@ public class ControllerAdvisor {
             InvalidPhoneException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_PHONE.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidFormatException(
+            InvalidFormatException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_FORMAT.getMessage()));
     }
 }
