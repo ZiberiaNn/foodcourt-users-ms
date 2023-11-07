@@ -1,6 +1,5 @@
 package com.pragma.powerup.application.dto.request;
 
-import com.pragma.powerup.domain.model.RoleModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,5 +16,5 @@ public class UserRequestDto {
     private Date birthDate;
     private String email;
     private String password;
-    private Collection<RoleModel> roles;
+    private Collection<Long> rolesIdList;
 }
