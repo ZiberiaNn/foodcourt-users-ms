@@ -2,6 +2,7 @@ package com.pragma.powerup.infrastructure.exceptionhandler;
 
 import com.pragma.powerup.domain.exception.InvalidEmailException;
 import com.pragma.powerup.domain.exception.InvalidIdentityDocumentException;
+import com.pragma.powerup.domain.exception.InvalidPhoneException;
 import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,16 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_IDENTITY_DOCUMENT.getMessage()));
     }
-
     @ExceptionHandler(InvalidEmailException.class)
     public ResponseEntity<Map<String, String>> handleInvalidEmailException(
             InvalidEmailException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_EMAIL.getMessage()));
+    }
+    @ExceptionHandler(InvalidPhoneException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidPhoneException(
+            InvalidPhoneException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_PHONE.getMessage()));
     }
 }
