@@ -1,7 +1,6 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
 import com.pragma.powerup.application.dto.request.UserRequestDto;
-import com.pragma.powerup.application.dto.response.ObjectResponseDto;
 import com.pragma.powerup.application.dto.response.UserResponseDto;
 import com.pragma.powerup.application.handler.IUserHandler;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +38,7 @@ public class UserRestController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "All users returned",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = ObjectResponseDto.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = UserResponseDto.class)))),
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/")
