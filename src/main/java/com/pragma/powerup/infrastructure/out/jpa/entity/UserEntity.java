@@ -30,7 +30,6 @@ public class UserEntity {
     private Date birthDate;
     @Column(length = 50)
     private String email;
-    @Column(length = 50)
     private String password;
     @ManyToMany
     private Collection<RoleEntity> roles;
