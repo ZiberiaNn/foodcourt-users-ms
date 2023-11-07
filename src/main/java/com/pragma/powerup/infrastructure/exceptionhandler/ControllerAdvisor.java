@@ -1,9 +1,10 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.pragma.powerup.domain.exception.InvalidEmailException;
-import com.pragma.powerup.domain.exception.InvalidIdentityDocumentException;
-import com.pragma.powerup.domain.exception.InvalidPhoneException;
+import com.pragma.powerup.domain.exception.invalid.InvalidBirthDateException;
+import com.pragma.powerup.domain.exception.invalid.InvalidEmailException;
+import com.pragma.powerup.domain.exception.invalid.InvalidIdentityDocumentException;
+import com.pragma.powerup.domain.exception.invalid.InvalidPhoneException;
 import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,5 +49,12 @@ public class ControllerAdvisor {
             InvalidFormatException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_FORMAT.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidBirthDateException.class)
+    public ResponseEntity<Map<String, String>> handleInvalidBirthDateException(
+            InvalidBirthDateException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_BIRTH_DATE.getMessage()));
     }
 }

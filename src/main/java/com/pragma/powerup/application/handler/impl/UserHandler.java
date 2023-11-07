@@ -29,7 +29,7 @@ public class UserHandler implements IUserHandler {
         UserModel userModel = userRequestMapper.toUserModel(userRequestDto);
         String plainPassword = userModel.getPassword();
         userModel.setPassword(passwordEncoder.encode(plainPassword));
-        userServicePort.saveUser(userModel);
+        userServicePort.saveOwner(userModel);
     }
 
     @Override
