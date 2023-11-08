@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IUserHandler {
 
-    void saveUser(UserRequestDto userRequestDto);
+    UserResponseDto saveOwner(UserRequestDto userRequestDto);
 
     List<UserResponseDto> getAllUsers();
 }

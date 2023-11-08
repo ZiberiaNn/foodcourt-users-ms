@@ -6,6 +6,7 @@ import com.pragma.powerup.application.handler.IUserHandler;
 import com.pragma.powerup.application.mapper.IUserRequestMapper;
 import com.pragma.powerup.application.mapper.IUserResponseMapper;
 import com.pragma.powerup.domain.api.IUserServicePort;
+import com.pragma.powerup.domain.model.RoleModel;
 import com.pragma.powerup.domain.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,11 +26,13 @@ public class UserHandler implements IUserHandler {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
-    public void saveUser(UserRequestDto userRequestDto) {
+    public UserResponseDto saveOwner(UserRequestDto userRequestDto) {
         UserModel userModel = userRequestMapper.toUserModel(userRequestDto);
         String plainPassword = userModel.getPassword();
         userModel.setPassword(passwordEncoder.encode(plainPassword));
-        userServicePort.saveOwner(userModel);
+        RoleModel userRole = new RoleModel(RoleModel.RoleEnum.OWNER);
+        userModel.setRoles(List.of(userRole));
+        return userResponseMapper.toResponse(userServicePort.saveOwner(userModel));
     }
 
     @Override

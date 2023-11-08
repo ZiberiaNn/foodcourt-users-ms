@@ -23,15 +23,15 @@ public class UserRestController {
 
     private final IUserHandler userHandler;
 
-    @Operation(summary = "Add a new user")
+    @Operation(summary = "Add a new user with owner role")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User created", content = @Content),
+            @ApiResponse(responseCode = "201", description = "User created",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDto.class))),
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
-    @PostMapping("/")
-    public ResponseEntity<Void> saveObject(@RequestBody UserRequestDto userRequestDto) {
-        userHandler.saveUser(userRequestDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @PostMapping("/owner")
+    public ResponseEntity<UserResponseDto> saveOwner(@RequestBody UserRequestDto userRequestDto) {
+        return new ResponseEntity<>(userHandler.saveOwner(userRequestDto), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get all users")
