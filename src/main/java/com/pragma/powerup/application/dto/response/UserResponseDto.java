@@ -1,6 +1,5 @@
 package com.pragma.powerup.application.dto.response;
 
-import com.pragma.powerup.domain.model.RoleModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,7 @@ import java.util.Date;
 @Setter
 public class UserResponseDto {
     private Long id;
-    @Schema(example = "Example Name", required = true)
+    @Schema(example = "Example Name")
     private String name;
     @Schema(example = "Example LastName")
     private String lastName;
@@ -23,11 +22,5 @@ public class UserResponseDto {
     private Date birthDate;
     @Schema(example = "example@example.com")
     private String email;
-    @Schema(example = "[\n" +
-            "        {\n" +
-            "            \"id\": 0,\n" +
-            "            \"name\": \"EXAMPLE\"\n" +
-            "        }\n" +
-            "    ]")
-    private Collection<RoleModel> roles;
+    private Collection<RoleResponseDto> roles;
 }
