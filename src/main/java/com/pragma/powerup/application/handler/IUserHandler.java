@@ -10,4 +10,5 @@ public interface IUserHandler {
     UserResponseDto saveOwner(UserRequestDto userRequestDto);
 
     List<UserResponseDto> getAllUsers();
+    UserResponseDto getUser(Long userId);
 }

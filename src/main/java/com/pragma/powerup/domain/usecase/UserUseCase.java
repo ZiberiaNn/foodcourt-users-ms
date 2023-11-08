@@ -44,4 +44,9 @@ public class UserUseCase implements IUserServicePort {
     public List<UserModel> getAllUsers() {
         return userPersistencePort.getAllUsers();
     }
+
+    @Override
+    public UserModel getUser(Long userId) {
+        return userPersistencePort.getUserById(userId);
+    }
 }

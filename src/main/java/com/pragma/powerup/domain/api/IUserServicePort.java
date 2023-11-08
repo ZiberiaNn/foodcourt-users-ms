@@ -8,4 +8,6 @@ public interface IUserServicePort {
     UserModel saveOwner(UserModel userModel);
 
     List<UserModel> getAllUsers();
+    UserModel getUser(Long userId);
+
 }
