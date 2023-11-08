@@ -1,8 +1,8 @@
 <br />
 <div align="center">
-<h3 align="center">PRAGMA POWER-UP</h3>
+<h3 align="center">PRAGMA POWER-UP USERS MICROSERVICE</h3>
   <p align="center">
-    In this challenge you are going to design the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.
+    Users microservice for Pragma Power-Up challenge about designing the backend of a system that centralizes the services and orders of a restaurant chain that has different branches in the city.
   </p>
 </div>
 
@@ -34,18 +34,19 @@ To get a local copy up and running follow these steps.
 1. Clone the repo
 2. Change directory
    ```sh
-   cd power-up-arquetipo
+   cd foodcourt_users-ms
    ```
-3. Create a new database in MySQL called powerup
+3. Create a new database in MySQL called foodcourt_users
 4. Update the database connection settings 
    ```yml
    # src/main/resources/application.yml   
    spring:
       datasource:
-          url: jdbc:mysql://localhost/powerup
+          url: jdbc:mysql://localhost/foodcourt_users
           username: root
           password: 1234
    ```
+5. Run the src/main/resources/insert_roles.sql script in the foodcourt_users database to ensure the correct roles are created
 
 <!-- USAGE -->
 ## Usage
