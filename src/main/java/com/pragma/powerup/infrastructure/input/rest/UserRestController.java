@@ -54,8 +54,13 @@ public class UserRestController {
             @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
     })
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> getUser(@Schema(example = "1")
+    public ResponseEntity<UserResponseDto> getUserById(@Schema(example = "1")
                                                              @PathVariable Long userId) {
-        return ResponseEntity.ok(userHandler.getUser(userId));
+        return ResponseEntity.ok(userHandler.getUserById(userId));
+    }
+    @GetMapping("/by-identity-number/{identityNumber}")
+    public ResponseEntity<UserResponseDto> getUserByIdentityNumber(@Schema(example = "1")
+                                                   @PathVariable Integer identityNumber) {
+        return ResponseEntity.ok(userHandler.getUserByIdentityNumber(identityNumber));
     }
 }

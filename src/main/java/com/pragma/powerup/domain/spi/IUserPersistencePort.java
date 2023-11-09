@@ -8,5 +8,5 @@ public interface IUserPersistencePort {
     UserModel saveUser(UserModel userModel);
     List<UserModel> getAllUsers();
     UserModel getUserById(Long userId);
-
+    UserModel getUserByIdentityNumber(Integer identityNumber);
 }
