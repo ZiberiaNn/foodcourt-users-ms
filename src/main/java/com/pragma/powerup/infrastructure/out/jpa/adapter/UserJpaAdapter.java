@@ -41,4 +41,13 @@ public class UserJpaAdapter implements IUserPersistencePort {
         }
         return userEntityMapper.toModel(entity.get());
     }
+
+    @Override
+    public UserModel getUserByIdentityNumber(Integer identityNumber) {
+        Optional<UserEntity> entity = userRepository.findOneByIdentityDocument(identityNumber);
+        if (entity.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return userEntityMapper.toModel(entity.get());
+    }
 }

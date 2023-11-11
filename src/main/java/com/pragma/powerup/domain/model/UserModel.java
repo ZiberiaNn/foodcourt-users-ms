@@ -16,7 +16,7 @@ public class UserModel {
     private Long id;
     private String name;
     private String lastName;
-    private Integer  identityDocument;
+    private Integer identityDocument;
     private String phone;
     private Date birthDate;
     private String email;

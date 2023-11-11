@@ -40,7 +40,12 @@ public class UserHandler implements IUserHandler {
         return userResponseMapper.toResponseList(userServicePort.getAllUsers());
     }
     @Override
-    public UserResponseDto getUser(Long userId) {
-        return userResponseMapper.toResponse(userServicePort.getUser(userId));
+    public UserResponseDto getUserById(Long userId) {
+        return userResponseMapper.toResponse(userServicePort.getUserById(userId));
+    }
+
+    @Override
+    public UserResponseDto getUserByIdentityNumber(Integer identityNumber) {
+        return userResponseMapper.toResponse(userServicePort.getUserByIdentityNumber(identityNumber));
     }
 }

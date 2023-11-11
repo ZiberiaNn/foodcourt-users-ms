@@ -24,7 +24,8 @@ public class UserEntity {
     private String name;
     @Column(length = 50)
     private String lastName;
-    private Integer  identityDocument;
+    @Column(unique = true, nullable = false)
+    private Integer identityDocument;
     @Column(length = 13)
     private String phone;
     private Date birthDate;

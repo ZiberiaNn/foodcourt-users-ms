@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -56,5 +57,11 @@ public class ControllerAdvisor {
             InvalidBirthDateException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(MESSAGE, ExceptionResponse.INVALID_BIRTH_DATE.getMessage()));
+    }
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<Map<String, String>> handleSQLIntegrityConstraintViolationException(
+            SQLIntegrityConstraintViolationException ignoredException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.SQL_INTEGRITY_CONSTRAINT_VIOLATION.getMessage()));
     }
 }
