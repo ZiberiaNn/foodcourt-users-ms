@@ -62,6 +62,6 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleSQLIntegrityConstraintViolationException(
             SQLIntegrityConstraintViolationException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Collections.singletonMap(MESSAGE, ExceptionResponse.SQL_INTEGRITY_CONSTRAINT_VIOLATION.getMessage()));
+                .body(Collections.singletonMap(MESSAGE, ignoredException.getMessage()));
     }
 }
