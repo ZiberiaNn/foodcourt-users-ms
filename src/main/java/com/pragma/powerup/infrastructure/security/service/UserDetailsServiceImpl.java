@@ -1,4 +1,4 @@
-package com.pragma.powerup.application.security.service.impl;
+package com.pragma.powerup.infrastructure.security.service;
 
 import com.pragma.powerup.domain.model.UserModel;
 import com.pragma.powerup.domain.spi.IUserPersistencePort;

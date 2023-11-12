@@ -1,4 +1,4 @@
-package com.pragma.powerup.application.security.config;
+package com.pragma.powerup.infrastructure.security.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

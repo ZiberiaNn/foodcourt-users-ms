@@ -1,4 +1,4 @@
-package com.pragma.powerup.application.security.config;
+package com.pragma.powerup.infrastructure.security.config;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 public class TokenProvider implements Serializable {
 
     @Value("${jwt.token.validity}")
-    public long TOKEN_VALIDITY;
+    private long tokenValidity;
 
     @Value("${jwt.signing.key}")
-    public String SIGNING_KEY;
+    private String signingKey;
 
     @Value("${jwt.authorities.key}")
-    public String AUTHORITIES_KEY;
+    private String authoritiesKey;
 
     public String getEmailFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
@@ -43,7 +43,7 @@ public class TokenProvider implements Serializable {
 
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
-                .setSigningKey(SIGNING_KEY)
+                .setSigningKey(signingKey)
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -60,10 +60,10 @@ public class TokenProvider implements Serializable {
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
+                .claim(authoritiesKey, authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY*1000))
-                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+                .setExpiration(new Date(System.currentTimeMillis() + tokenValidity *1000))
+                .signWith(SignatureAlgorithm.HS256, signingKey)
                 .compact();
     }
 
@@ -72,16 +72,16 @@ public class TokenProvider implements Serializable {
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final Authentication existingAuth, final UserDetails userDetails) {
+    UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final UserDetails userDetails) {
 
-        final JwtParser jwtParser = Jwts.parser().setSigningKey(SIGNING_KEY);
+        final JwtParser jwtParser = Jwts.parser().setSigningKey(signingKey);
 
         final Jws<Claims> claimsJws = jwtParser.parseClaimsJws(token);
 
         final Claims claims = claimsJws.getBody();
 
         final Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                Arrays.stream(claims.get(authoritiesKey).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 

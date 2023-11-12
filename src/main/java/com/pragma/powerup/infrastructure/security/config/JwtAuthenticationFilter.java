@@ -1,8 +1,7 @@
-package com.pragma.powerup.application.security.config;
+package com.pragma.powerup.infrastructure.security.config;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,9 +20,9 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Value("${jwt.header.string}")
-    public String HEADER_STRING;
+    private String headerString;
     @Value("${jwt.token.prefix}")
-    public String TOKEN_PREFIX;
+    private String tokenPrefix;
     @Resource(name = "userDetailsService")
     private UserDetailsService userDetailsService;
     @Autowired
@@ -31,12 +30,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
-        String header = req.getHeader(HEADER_STRING);
+        String header = req.getHeader(headerString);
         String username = null;
         String authToken = null;
 
-        if (header != null && header.startsWith(TOKEN_PREFIX)) {
-            authToken = header.replace(TOKEN_PREFIX, "");
+        if (header != null && header.startsWith(tokenPrefix)) {
+            authToken = header.replace(tokenPrefix, "");
 
             try {
                 username = jwtTokenUtil.getEmailFromToken(authToken);
@@ -54,8 +53,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            if (jwtTokenUtil.validateToken(authToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthenticationToken(authToken, SecurityContextHolder.getContext().getAuthentication(), userDetails);
+            if (Boolean.TRUE.equals(jwtTokenUtil.validateToken(authToken, userDetails))) {
+                UsernamePasswordAuthenticationToken authentication = jwtTokenUtil.getAuthenticationToken(authToken, userDetails);
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));
                 logger.info("User authenticated: " + username + ", setting security context");
                 SecurityContextHolder.getContext().setAuthentication(authentication);
