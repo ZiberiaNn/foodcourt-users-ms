@@ -9,4 +9,6 @@ public interface IUserPersistencePort {
     List<UserModel> getAllUsers();
     UserModel getUserById(Long userId);
     UserModel getUserByIdentityNumber(Integer identityNumber);
+
+    UserModel getUserByEmail(String email);
 }

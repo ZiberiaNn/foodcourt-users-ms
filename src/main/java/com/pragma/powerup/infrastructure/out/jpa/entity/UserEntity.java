@@ -29,9 +29,9 @@ public class UserEntity {
     @Column(length = 13)
     private String phone;
     private Date birthDate;
-    @Column(length = 50)
+    @Column(length = 50, unique = true, nullable = false)
     private String email;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Collection<RoleEntity> roles;
 }
