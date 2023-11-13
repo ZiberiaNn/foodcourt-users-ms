@@ -59,7 +59,7 @@ public class UserRestController {
         return ResponseEntity.ok(userHandler.getUserById(userId));
     }
     @GetMapping("/by-identity-number/{identityNumber}")
-    public ResponseEntity<UserResponseDto> getUserByIdentityNumber(@Schema(example = "1")
+    public ResponseEntity<UserResponseDto> getUserByIdentityNumber(@Schema(example = "123456789")
                                                    @PathVariable Integer identityNumber) {
         return ResponseEntity.ok(userHandler.getUserByIdentityNumber(identityNumber));
     }
