@@ -7,9 +7,9 @@ import com.pragma.powerup.application.dto.response.UserResponseDto;
 import com.pragma.powerup.application.handler.IUserHandler;
 import com.pragma.powerup.application.mapper.IUserRequestMapper;
 import com.pragma.powerup.application.mapper.IUserResponseMapper;
+import com.pragma.powerup.domain.api.IRoleServicePort;
 import com.pragma.powerup.infrastructure.security.utils.TokenUtils;
 import com.pragma.powerup.domain.api.IUserServicePort;
-import com.pragma.powerup.domain.model.RoleModel;
 import com.pragma.powerup.domain.model.UserModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +28,7 @@ import java.util.List;
 public class UserHandler implements IUserHandler {
 
     private final IUserServicePort userServicePort;
+    private final IRoleServicePort roleServicePort;
     private final IUserRequestMapper userRequestMapper;
     private final IUserResponseMapper userResponseMapper;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -48,12 +49,13 @@ public class UserHandler implements IUserHandler {
     }
 
     @Override
-    public UserResponseDto saveOwner(UserRequestDto userRequestDto) {
+    public UserResponseDto saveUser(UserRequestDto userRequestDto) {
         UserModel userModel = userRequestMapper.toUserModel(userRequestDto);
         String plainPassword = userModel.getPassword();
         userModel.setPassword(passwordEncoder.encode(plainPassword));
-        RoleModel userRole = new RoleModel(RoleModel.RoleEnum.OWNER);
-        userModel.setRoles(List.of(userRole));
+        userModel.setRoles(userModel.getRoles().stream().map(
+                role -> roleServicePort.getRoleByName(role.getName())
+        ).toList());
         return userResponseMapper.toResponse(userServicePort.saveOwner(userModel));
     }
 

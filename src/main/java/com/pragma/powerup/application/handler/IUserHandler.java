@@ -10,7 +10,7 @@ import java.util.List;
 public interface IUserHandler {
 
     AuthTokenResponseDto authenticateUser(UserLoginDto userLoginDto);
-    UserResponseDto saveOwner(UserRequestDto userRequestDto);
+    UserResponseDto saveUser(UserRequestDto userRequestDto);
     List<UserResponseDto> getAllUsers();
     UserResponseDto getUserById(Long userId);
     UserResponseDto getUserByIdentityNumber(Integer identityNumber);

@@ -1,9 +1,11 @@
 package com.pragma.powerup.application.dto.request;
 
+import com.pragma.powerup.domain.model.enums.RoleEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
@@ -23,4 +25,5 @@ public class UserRequestDto {
     private String email;
     @Schema(example = "example", required = true)
     private String password;
+    private Collection<RoleEnum> roles;
 }

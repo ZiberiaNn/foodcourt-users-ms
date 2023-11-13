@@ -41,9 +41,9 @@ public class UserRestController {
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/owner")
-    public ResponseEntity<UserResponseDto> saveOwner(@RequestBody UserRequestDto userRequestDto) {
-        return new ResponseEntity<>(userHandler.saveOwner(userRequestDto), HttpStatus.CREATED);
+    @PostMapping("/")
+    public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto userRequestDto) {
+        return new ResponseEntity<>(userHandler.saveUser(userRequestDto), HttpStatus.CREATED);
     }
     @Operation(summary = "Get all users")
     @ApiResponses(value = {
