@@ -46,7 +46,8 @@ To get a local copy up and running follow these steps.
           username: root
           password: 1234
    ```
-5. Run the src/main/resources/insert_roles.sql script in the foodcourt_users database to ensure the correct roles are created
+4. Run the Spring Boot application atleast once to create the database tables
+5. Run the src/main/resources/init_users_ms.sql script in the foodcourt_users database ONLY ONCE to insert the initial data
 
 <!-- USAGE -->
 ## Usage
