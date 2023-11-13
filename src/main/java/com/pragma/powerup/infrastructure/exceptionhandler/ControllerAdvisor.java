@@ -1,6 +1,7 @@
 package com.pragma.powerup.infrastructure.exceptionhandler;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.pragma.powerup.domain.exception.ForbiddenException;
 import com.pragma.powerup.domain.exception.invalid.InvalidBirthDateException;
 import com.pragma.powerup.domain.exception.invalid.InvalidEmailException;
 import com.pragma.powerup.domain.exception.invalid.InvalidIdentityDocumentException;
@@ -74,6 +75,12 @@ public class ControllerAdvisor {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<Map<String, String>> handleBadCredentialsException(
             BadCredentialsException ignoredException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Collections.singletonMap(MESSAGE, ignoredException.getMessage()));
+    }
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Map<String, String>> handleForbiddenException(
+            ForbiddenException ignoredException) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap(MESSAGE, ignoredException.getMessage()));
     }

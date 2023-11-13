@@ -34,13 +34,17 @@ public class UserRestController {
     public String adminPing(){
         return "Only Admins Can Read This";
     }
-    @Operation(summary = "Add a new user with owner role")
+    @Operation(summary = "Add a new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDto.class))),
             @ApiResponse(responseCode = "409", description = "User already exists", content = @Content)
     })
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole(" +
+            "T(com.pragma.powerup.domain.model.enums.RoleEnum).ADMIN.toString()," +
+            "T(com.pragma.powerup.domain.model.enums.RoleEnum).OWNER.toString()," +
+            "T(com.pragma.powerup.domain.model.enums.RoleEnum).CLIENT.toString()" +
+            ")")
     @PostMapping("/")
     public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto userRequestDto) {
         return new ResponseEntity<>(userHandler.saveUser(userRequestDto), HttpStatus.CREATED);
