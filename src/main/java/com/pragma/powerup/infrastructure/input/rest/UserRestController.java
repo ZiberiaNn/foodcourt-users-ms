@@ -29,11 +29,6 @@ public class UserRestController {
     public ResponseEntity<AuthTokenResponseDto> generateToken(@RequestBody UserLoginDto userLoginDto) throws AuthenticationException {
         return ResponseEntity.ok(userHandler.authenticateUser(userLoginDto));
     }
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping(value="/test/adminping")
-    public String adminPing(){
-        return "Only Admins Can Read This";
-    }
     @Operation(summary = "Add a new user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created",
@@ -72,9 +67,28 @@ public class UserRestController {
                                                              @PathVariable Long userId) {
         return ResponseEntity.ok(userHandler.getUserById(userId));
     }
+    @Operation(summary = "Get one users by user identity number")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User returned",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserResponseDto.class)))),
+            @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
+    })
     @GetMapping("/by-identity-number/{identityNumber}")
     public ResponseEntity<UserResponseDto> getUserByIdentityNumber(@Schema(example = "123456789")
                                                    @PathVariable Integer identityNumber) {
         return ResponseEntity.ok(userHandler.getUserByIdentityNumber(identityNumber));
+    }
+    @Operation(summary = "Get one users by user email")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User returned",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = UserResponseDto.class)))),
+            @ApiResponse(responseCode = "404", description = "No data found", content = @Content)
+    })
+    @GetMapping("/by-email/{email}")
+    public ResponseEntity<UserResponseDto> getUserByEmail(@Schema(example = "example@example.com")
+                                                                   @PathVariable String email) {
+        return ResponseEntity.ok(userHandler.getUserByEmail(email));
     }
 }

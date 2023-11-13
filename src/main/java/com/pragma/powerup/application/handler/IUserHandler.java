@@ -14,4 +14,6 @@ public interface IUserHandler {
     List<UserResponseDto> getAllUsers();
     UserResponseDto getUserById(Long userId);
     UserResponseDto getUserByIdentityNumber(Integer identityNumber);
+
+    UserResponseDto getUserByEmail(String email);
 }

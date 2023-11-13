@@ -76,4 +76,9 @@ public class UserUseCase implements IUserServicePort {
     public UserModel getUserByIdentityNumber(Integer identityNumber) {
         return userPersistencePort.getUserByIdentityNumber(identityNumber);
     }
+    @Override
+    public UserModel getUserByEmail(String email) {
+        return userPersistencePort.getUserByEmail(email);
+    }
+
 }

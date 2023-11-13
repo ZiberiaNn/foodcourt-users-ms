@@ -72,4 +72,8 @@ public class UserHandler implements IUserHandler {
     public UserResponseDto getUserByIdentityNumber(Integer identityNumber) {
         return userResponseMapper.toResponse(userServicePort.getUserByIdentityNumber(identityNumber));
     }
+    @Override
+    public UserResponseDto getUserByEmail(String email) {
+        return userResponseMapper.toResponse(userServicePort.getUserByEmail(email));
+    }
 }
