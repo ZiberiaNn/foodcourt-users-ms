@@ -8,6 +8,7 @@ import com.pragma.powerup.domain.exception.invalid.InvalidPhoneException;
 import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -62,6 +63,12 @@ public class ControllerAdvisor {
     public ResponseEntity<Map<String, String>> handleSQLIntegrityConstraintViolationException(
             SQLIntegrityConstraintViolationException ignoredException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(MESSAGE, ignoredException.getMessage()));
+    }
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Map<String, String>> handleBadCredentialsException(
+            BadCredentialsException ignoredException) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap(MESSAGE, ignoredException.getMessage()));
     }
 }

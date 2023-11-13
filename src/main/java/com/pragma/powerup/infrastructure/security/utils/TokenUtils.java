@@ -1,4 +1,4 @@
-package com.pragma.powerup.infrastructure.security.config;
+package com.pragma.powerup.infrastructure.security.utils;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class TokenProvider implements Serializable {
+public class TokenUtils implements Serializable {
 
     @Value("${jwt.token.validity}")
     private long tokenValidity;
@@ -72,7 +72,7 @@ public class TokenProvider implements Serializable {
         return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
-    UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final UserDetails userDetails) {
+    public UsernamePasswordAuthenticationToken getAuthenticationToken(final String token, final UserDetails userDetails) {
 
         final JwtParser jwtParser = Jwts.parser().setSigningKey(signingKey);
 

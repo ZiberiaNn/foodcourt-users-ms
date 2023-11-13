@@ -1,5 +1,6 @@
 package com.pragma.powerup.infrastructure.security.config;
 
+import com.pragma.powerup.infrastructure.security.utils.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

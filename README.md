@@ -47,7 +47,7 @@ To get a local copy up and running follow these steps.
           password: 1234
    ```
 4. Run the Spring Boot application atleast once to create the database tables
-5. Run the src/main/resources/init_users_ms.sql script in the foodcourt_users database to insert the initial data
+5. Run the src/main/resources/init_users_ms.sql script in the foodcourt_users database ONLY ONCE to insert the initial data
 
 <!-- USAGE -->
 ## Usage

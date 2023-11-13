@@ -1,4 +1,4 @@
-package com.pragma.powerup.infrastructure.security.config;
+package com.pragma.powerup.infrastructure.security.utils;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

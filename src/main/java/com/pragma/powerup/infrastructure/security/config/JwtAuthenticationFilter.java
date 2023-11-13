@@ -1,5 +1,6 @@
 package com.pragma.powerup.infrastructure.security.config;
 
+import com.pragma.powerup.infrastructure.security.utils.TokenUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Resource(name = "userDetailsService")
     private UserDetailsService userDetailsService;
     @Autowired
-    private TokenProvider jwtTokenUtil;
+    private TokenUtils jwtTokenUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
