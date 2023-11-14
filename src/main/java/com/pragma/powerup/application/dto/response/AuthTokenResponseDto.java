@@ -1,4 +1,4 @@
-package com.pragma.powerup.domain.model;
+package com.pragma.powerup.application.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ObjectModel {
-    private Long id;
-    private String name;
+public class AuthTokenResponseDto {
+    private String token;
 }
