@@ -22,5 +22,7 @@ public class UserResponseDto {
     private Date birthDate;
     @Schema(example = "example@example.com")
     private String email;
+    @Schema(example = "$2y$10$ynFNnapjvMncSWll5j8OwOnt4f5KWg/OaphHqJ.22D7fig/U0Nabm", required = true)
+    private String password;
     private Collection<RoleResponseDto> roles;
 }
